@@ -34,5 +34,13 @@ fn add_big_strings(dst: &mut Vec<String>, src: &[String]) {
 }
 
 fn main() {
-    println!("Hi!");
+    // Defining a vector containing one element String
+    let mut v: Vec<String> = vec![String::from("Hello world")];
+    // Here the string is moved out of the vector.
+    let mut s: String = v.remove(0);
+    // Adding '!' at the end of the string.
+    s.push('!');
+    println!("{s}");
+    // Asserting now the vector is empty.
+    assert!(v.len() == 0);
 }
