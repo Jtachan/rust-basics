@@ -53,6 +53,7 @@ They all link to the main file, that is either the script RS file for the script
 ### Scripts
 
 - [Temperature converter](./scripts/temperature_converter.rs)
+- [`rustlings` exercises](./scripts/rustlings/)
 
 ### Crates
 
