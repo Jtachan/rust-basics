@@ -15,23 +15,18 @@ Alongside the projects, in this document is presented a cheat-sheet over some ba
     - [Scripts](#scripts)
     - [Crates](#crates)
 
+---
 ## Rust basic theory
 
-### Formatting
+### 1. Formatting
 
-**Single files (scrits)**
-```
-rustfmt FILE_PATH.rs
-```
-
-**Cargo**
-```
-fmt
-```
+| Single files (scripts)  | Cargo pkgs                            |
+|-------------------------|---------------------------------------|
+| `rustfmt FILE_PATH.rs`  |  `fmt` (from within the cargo folder) |
 
 > Note: The formatting will also return linting messages.
 
-### Compiling
+### 2. Compiling
 
 **Single files**
 ```
@@ -45,6 +40,7 @@ rustc FILE_PATH.rs
 - `cargo check`: Sanity checks over the code without compiling.
 - `cargo build --release`: Create an executable at _target/release/CRATE-NAME_. The code compiles with optimizations for the finla executable to run faster.
 
+---
 ## Uploaded projects
 
 Here are listed all projects that are uploaded in the repository.
