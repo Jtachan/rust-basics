@@ -1,33 +1,46 @@
-/*
-    Definition of two structures (Rectangle and Circle) and calculating their areas.
+/*  SHAPES AREA CALCULATIONS
+
+    The goal of this script is to:
+        - Define a general enum "shape" containing all possible shapes (circle and rectangle).
+        - Use `impl` to define the function 'area' for all shapes.
+        - Create a structure 'Square' which will reuse all the code from 'Rectangle'
 */
 use std::f64::consts;
 
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
+// Definition of all general base shapes:
+enum Shape {
+    Circle { radius: u32 },
+    Rectangle { width: u32, height: u32 },
 }
 
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
+// Implementation of the logic to calculate the areas:
+impl Shape {
+    fn area(&self) -> f64 {
+        match self {
+            Shape::Rectangle { width, height } => (width * height) as f64,
+            Shape::Circle { radius } => (*radius as f64).powf(2.0) * consts::PI,
+        }
     }
 }
 
-#[derive(Debug)]
-struct Circle {
-    radius: f64,
+// Square definition -> A squares is a subcase of a rectangle.
+struct Square {
+    side: u32,
 }
 
-impl Circle {
+impl Square {
     fn area(&self) -> f64 {
-        self.radius.powf(2.0) * consts::PI
+        Shape::Rectangle {
+            width: self.side,
+            height: self.side,
+        }
+        .area()
     }
 }
 
 fn main() {
-    let rect = Rectangle {
+    // Rectangle:
+    let rect = Shape::Rectangle {
         width: 30,
         height: 50,
     };
@@ -36,6 +49,10 @@ fn main() {
         rect.area()
     );
 
-    let circ = Circle { radius: 25.0 };
+    // Square:
+    let sq = Square { side: 20 };
+    println!("The area of the square is {} squared pixels.", sq.area());
+
+    let circ = Shape::Circle { radius: 25 };
     println!("The area of the circle is {} squared pixels.", circ.area())
 }
