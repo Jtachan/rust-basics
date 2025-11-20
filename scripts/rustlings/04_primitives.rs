@@ -51,6 +51,19 @@ fn create_array(a: &[i32]) -> String {
     }
 }
 
+fn rust_slices() {
+    // Array
+    let a = [1, 2, 3, 4, 5];
+    let slice = &a[1..4];
+    assert_eq!([2, 3, 4], slice);
+    // String
+    let a = "Hello world!";
+    let slice = &a[..5];
+    assert_eq!("Hello", slice);
+    let slice = &a[6..11];
+    assert_eq!("world", slice);
+}
+
 fn main() {
     // Test: Greetings (booleans)
     let is_morning: bool = true;
@@ -69,6 +82,20 @@ fn main() {
     assert_eq!(create_array(&a), "The array is not big enough!");
     let a: [i32; 100] = [5; 100];
     assert_eq!(create_array(&a), "That is a big array!");
+    // Test: slices
+    rust_slices();
+    // Test: Unpacking tuples
+    let cat = ("Cookie", 1.7);
+    let (name, age) = cat;
+    assert_eq!(name, "Cookie");
+    assert_eq!(age, 1.7);
+    // Test: indexing
+    let numbers = (1, 2, 3);
+    let second = numbers.1;
+    assert_eq!(second, 2, "This is not the 2nd number!");
+    let numbers = [1, 2, 3];
+    let second = numbers[1];
+    assert_eq!(second, 2, "This is not the 2nd number!");
 
     println!("All tests passed!");
 }
