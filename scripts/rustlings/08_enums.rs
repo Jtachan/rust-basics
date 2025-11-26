@@ -41,9 +41,9 @@ impl Message {
 }
 
 /*
-   ----------------------------------
-   Exercise 3: Enums related to types
-   ----------------------------------
+   ---------------------------------------------
+   Exercise 3: Control flow with enums and match
+   ---------------------------------------------
 */
 
 #[derive(Debug)]
