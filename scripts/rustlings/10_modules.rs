@@ -28,13 +28,29 @@ mod delicious_snacks {
     }
 }
 
+/*
+   Exercise 3: Use of standard libraries into scope.
+   Import structure 'SystemTime' and constant 'UNIX_EPOCH' from 'std::time'.
+   This can be performed in a single line.
+*/
+use std::time::{SystemTime, UNIX_EPOCH};
+
 fn main() {
     println!("\nExercise 1:");
     sausage_factory::make_sausage();
 
     println!("\nExercise 2:");
-    println!("favourite snacks: {} and {}",
+    println!(
+        "favourite snacks: {} and {}",
         delicious_snacks::fruit,
         delicious_snacks::veggie,
-    )
+    );
+
+    println!("\nExercise 3:");
+    match SystemTime::now().duration_since(UNIX_EPOCH) {
+        Ok(n) => println!("1970-01-01 00:00:00 UTC was {} seconds ago!", n.as_secs()),
+        Err(_) => panic!("SystemTime before UNIX EPOCH! (what did you do to reach here?)"),
+    }
+
+    println!("All test passed!");
 }
