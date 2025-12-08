@@ -42,6 +42,31 @@ fn layered_option() {
     assert_eq!(cursor, 0);
 }
 
+// Exercise 3:
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn struct_option() {
+    let optional_point = Some(Point { x: 100, y: 200 });
+
+    // Solution 1: Checking over &Option
+    match &optional_point {
+        Some(p) => println!("Coordinates are {},{}", p.x, p.y),
+        _ => panic!("No match!"),
+    }
+
+    // Solution 2: Using 'ref' to borrow the value and not move it
+    match optional_point {
+        Some(ref p) => println!("Coordinates are {},{}", p.x, p.y),
+        _ => panic!("No match!"),
+    }
+
+    println!("{optional_point:?}");  // This line must stay
+}
+
 fn main() {
     // Exercise 1:
     let icecreams = maybe_icecream(12).unwrap();
@@ -57,6 +82,9 @@ fn main() {
     // Exercise 2:
     simple_option();
     layered_option();
+
+    // Exercise 3:
+    struct_option();
 
     println!("All tests passed!");
 }
