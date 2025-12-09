@@ -14,6 +14,7 @@ Alongside the projects, in this document is presented a cheat-sheet over some ba
 - [**Projects**](#uploaded-projects)
     - [Scripts](#scripts)
     - [Crates](#crates)
+- [**Rust installation**](#rust-installation)
 
 ---
 ## Rust basic theory
@@ -54,3 +55,27 @@ They all link to the main file, that is either the script RS file for the script
 ### Crates
 
 - [Number guessing game](./crates/guessing_game/src/main.rs)
+
+---
+## Rust installation
+
+The following guide is created assuming Windows OS.
+
+1. Download the rust executable from the original source: https://www.rust-lang.org/tools/install
+2. Launch and install the executable. Rust will require of C++ tools for development.
+3. Check a correct installed version by writing `rustc --version` within the terminal.
+
+With this, rust is correctly installed through `rustup`.
+
+At last, two additional commands are required to make `rust` runnable on windows:
+
+```
+rustup toolchain install stable-x86_64-pc-windows-gnu
+rustup default stable-x86_64-pc-windows-gnu
+```
+
+At last, it also provides commands to update it or uninstall it:
+
+- `rustup update`
+- `rustup self uninstall`
+
