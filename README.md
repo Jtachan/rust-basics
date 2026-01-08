@@ -41,6 +41,12 @@ rustc FILE_PATH.rs
 - `cargo check`: Sanity checks over the code without compiling.
 - `cargo build --release`: Create an executable at _target/release/CRATE-NAME_. The code compiles with optimizations for the finla executable to run faster.
 
+### 3. Documentation
+
+`cargo doc` builds locally the documentation of the cargo project.<br>
+See more at https://doc.rust-lang.org/cargo/commands/cargo-doc.html
+ 
+
 ---
 ## Uploaded projects
 
