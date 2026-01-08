@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::num::{IntErrorKind, ParseIntError};
 
 // Exercise 1: Create a function that returns a Result type depending on the input provided.
@@ -51,6 +52,43 @@ fn buy_with_tokens() -> Result<(), ParseIntError> {
     Ok(())
 }
 
+/*
+   Exercise 4:
+*/
+#[derive(PartialEq, Debug)]
+enum CreationError {
+    Negative,
+    Zero,
+}
+
+#[derive(PartialEq, Debug)]
+struct PositiveNonzeroInteger(u64);
+
+impl PositiveNonzeroInteger {
+    fn new(value: i64) -> Result<Self, CreationError> {
+        // This function shouldn't always return an Ok
+
+        /*
+            Solution 1: Use an if-else block
+            --------------------------------
+            if value < 0 {
+                Err(CreationError::Negative)
+            } else if value == 0 {
+                Err(CreationError::Zero)
+            } else {
+                Ok(Self(value as u64))
+            }
+        */
+
+        // Solution 2: Use match compare
+        match value.cmp(&0) {
+            Ordering::Less => Err(CreationError::Negative),
+            Ordering::Equal => Err(CreationError::Zero),
+            Ordering::Greater => Ok(Self(value as u64)),
+        }
+    }
+}
+
 fn main() {
     // Exercise 1
     assert_eq!(
@@ -71,8 +109,19 @@ fn main() {
         &IntErrorKind::InvalidDigit
     );
 
-    // Exercise 3:
+    // Exercise 3
     let _ = buy_with_tokens();
+
+    // Exercise 4
+    assert_eq!(
+        PositiveNonzeroInteger::new(10),
+        Ok(PositiveNonzeroInteger(10))
+    );
+    assert_eq!(
+        PositiveNonzeroInteger::new(-10),
+        Err(CreationError::Negative)
+    );
+    assert_eq!(PositiveNonzeroInteger::new(0), Err(CreationError::Zero));
 
     println!("All tests passed!");
 }
