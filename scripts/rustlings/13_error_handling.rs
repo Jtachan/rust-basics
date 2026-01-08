@@ -33,6 +33,24 @@ fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     Ok(qty * cost_per_item + process_fee)
 }
 
+// Exercise 3: Fix the compiler by changing the signature and body of the `buy_with_tokens` function.
+fn buy_with_tokens() -> Result<(), ParseIntError> {
+    let mut tokens = 100;
+    let pretend_user_input = "8";
+
+    let cost = total_cost(pretend_user_input)?; // This line must not be changed
+
+    if cost > tokens {
+        println!("You can't afford that many");
+    } else {
+        tokens -= cost;
+        println!("You now have {tokens} tokens.");
+    }
+
+    // The type '()' is the Unit Type. Other languages use `null` or `void` instead.
+    Ok(())
+}
+
 fn main() {
     // Exercise 1
     assert_eq!(
@@ -52,6 +70,9 @@ fn main() {
         total_cost("beep boop").unwrap_err().kind(),
         &IntErrorKind::InvalidDigit
     );
+
+    // Exercise 3:
+    let _ = buy_with_tokens();
 
     println!("All tests passed!");
 }
