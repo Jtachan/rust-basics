@@ -1,4 +1,6 @@
 use std::cmp::Ordering;
+use std::error::Error;
+use std::fmt;
 use std::num::{IntErrorKind, ParseIntError};
 
 // Exercise 1: Create a function that returns a Result type depending on the input provided.
@@ -52,15 +54,26 @@ fn buy_with_tokens() -> Result<(), ParseIntError> {
     Ok(())
 }
 
-/*
-   Exercise 4:
-*/
+// Block for Exercises 4 and 5
 #[derive(PartialEq, Debug)]
 enum CreationError {
     Negative,
     Zero,
 }
 
+impl fmt::Display for CreationError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let description = match *self {
+            CreationError::Negative => "number is negative",
+            CreationError::Zero => "number is zero",
+        };
+        f.write_str(description)
+    }
+}
+
+impl Error for CreationError {}
+
+// Exercise 4: Define the code at 'new' to return the correct result (see test cases)
 #[derive(PartialEq, Debug)]
 struct PositiveNonzeroInteger(u64);
 
@@ -86,7 +99,22 @@ impl PositiveNonzeroInteger {
             Ordering::Equal => Err(CreationError::Zero),
             Ordering::Greater => Ok(Self(value as u64)),
         }
+
+        // Solution 3: Use basic match-if
+        // match value {
+        //     x if x < 0 => Err(CreationError::Negative),
+        //     0 => Err(CreationError::Zero),
+        //     x => Ok(PositiveNonzeroInteger2(x as u64)),
+        // }
     }
+}
+
+// Exercise 5
+fn box_the_error() -> Result<(), Box<dyn Error>> {
+    let pretend_user_input = "42";
+    let x: i64 = pretend_user_input.parse()?;
+    println!("output={:?}", PositiveNonzeroInteger::new(x)?);
+    Ok(())
 }
 
 fn main() {
@@ -122,6 +150,9 @@ fn main() {
         Err(CreationError::Negative)
     );
     assert_eq!(PositiveNonzeroInteger::new(0), Err(CreationError::Zero));
+
+    // Exercise 5
+    let _ = box_the_error();
 
     println!("All tests passed!");
 }
