@@ -109,12 +109,42 @@ impl PositiveNonzeroInteger {
     }
 }
 
-// Exercise 5
+/* Exercise 5 - Box the error (correct the return type)
+       Boxing like `Box<dyn ???>` means "I want anything that does ???".
+
+  More boxing concepts are included in next sections, for now (in this exercise) it is just a
+  simplification of what type of error it is returned: We don't care about its specific type,
+  we just care it is an error type.
+*/
 fn box_the_error() -> Result<(), Box<dyn Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);
     Ok(())
+}
+
+// Exercise 6: mapping errors
+#[derive(PartialEq, Debug)]
+enum ParsePosNonzeroError {
+    Creation(CreationError),
+    ParseInt(ParseIntError),
+}
+
+impl ParsePosNonzeroError {
+    fn from_creation(err: CreationError) -> Self {
+        Self::Creation(err)
+    }
+
+    fn from_parse_int(err: ParseIntError) -> Self {
+        Self::ParseInt(err)
+    }
+}
+
+impl PositiveNonzeroInteger {
+    fn parse(s: &str) -> Result<Self, ParsePosNonzeroError> {
+        let x: i64 = s.parse().map_err(ParsePosNonzeroError::from_parse_int)?;
+        Self::new(x).map_err(ParsePosNonzeroError::from_creation)
+    }
 }
 
 fn main() {
@@ -153,6 +183,20 @@ fn main() {
 
     // Exercise 5
     let _ = box_the_error();
+
+    // Exercise 6
+    assert!(matches!(
+        PositiveNonzeroInteger::parse("not a number"),
+        Err(ParsePosNonzeroError::ParseInt(_)),
+    ));
+    assert_eq!(
+        PositiveNonzeroInteger::parse("-555"),
+        Err(ParsePosNonzeroError::Creation(CreationError::Negative))
+    );
+    assert_eq!(
+        PositiveNonzeroInteger::parse("0"),
+        Err(ParsePosNonzeroError::Creation(CreationError::Zero))
+    );
 
     println!("All tests passed!");
 }
