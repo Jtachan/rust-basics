@@ -7,6 +7,7 @@
    CLI arguments
        By running `cargo run --` anything provided after `--` is considered an argument.
 */
+use minigrep::search;
 use std::error::Error;
 use std::{env, fs, process};
 
@@ -29,7 +30,11 @@ fn main() {
 
 fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.file_path)?;
-    println!("Read content:\n-------------\n{contents}");
+
+    for line in search(&config.query, &contents) {
+        println!("{line}");
+    }
+
     Ok(())
 }
 
