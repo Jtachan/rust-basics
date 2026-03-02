@@ -92,6 +92,13 @@ fn list_of_results() -> Vec<Result<i64, DivisionError>> {
     div_results.collect()
 }
 
+// ------------------------- Exercise 4 Block
+fn factorial(num: u64) -> u64 {
+    // `(2..=num)` -> iterator from '2' to 'num' (lazy iterator, only run when called).
+    // `fold(init, func)` -> see https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.fold
+    (2..=num).fold(1, |acc, x| acc * x)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -151,5 +158,13 @@ mod tests {
     #[test]
     fn ex3_list_of_results() {
         assert_eq!(list_of_results(), [Ok(1), Ok(11), Ok(1426), Ok(3)]);
+    }
+
+    #[test]
+    fn ex4_factorial() {
+        assert_eq!(factorial(0), 1);
+        assert_eq!(factorial(1), 1);
+        assert_eq!(factorial(2), 2);
+        assert_eq!(factorial(4), 24);
     }
 }
