@@ -45,7 +45,11 @@ rustc FILE_PATH.rs
 
 `cargo doc` builds locally the documentation of the cargo project.<br>
 See more at https://doc.rust-lang.org/cargo/commands/cargo-doc.html
- 
+
+### 4. Crates.io and release of projects
+The page `crates` currently requires a GitHub account and to manage all packages locally.
+In other words, a **manual login** is required (one from each device if possible).
+Read more at https://doc.rust-lang.org/book/ch14-02-publishing-to-crates-io.html#setting-up-a-cratesio-account
 
 ---
 ## Uploaded projects
