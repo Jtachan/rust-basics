@@ -35,7 +35,7 @@ fn main() {
     evaluate_chains();
 
     // Exercise 3:
-    let book = Book{
+    let book = Book {
         author: "George Orwell",
         title: "1984",
     };

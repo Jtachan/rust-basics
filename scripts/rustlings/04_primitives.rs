@@ -39,11 +39,11 @@ fn character_check(your_char: char) -> String {
 fn create_array(a: &[i32]) -> String {
     // TODO: Create an array called `a` with at least 100 elements in it.
     /* Note:
-        The syntaxis "let a = [1; nof_elem];" allows creating an array of as many elements as specified.
-        However, this won't compile. 'nof_elem' must be a known value when creating an array.
+       The syntaxis "let a = [1; nof_elem];" allows creating an array of as many elements as specified.
+       However, this won't compile. 'nof_elem' must be a known value when creating an array.
 
-        For now, consider that only an array could be parsed into the function.
-     */
+       For now, consider that only an array could be parsed into the function.
+    */
     if a.len() >= 100 {
         "That is a big array!".to_string()
     } else {

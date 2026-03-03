@@ -38,7 +38,7 @@ mod my_module {
                         s.push_str("bar")
                     }
                     s.to_string()
-                },
+                }
             };
             output.push(str_out);
         }

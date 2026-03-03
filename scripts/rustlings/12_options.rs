@@ -64,7 +64,7 @@ fn struct_option() {
         _ => panic!("No match!"),
     }
 
-    println!("{optional_point:?}");  // This line must stay
+    println!("{optional_point:?}"); // This line must stay
 }
 
 fn main() {

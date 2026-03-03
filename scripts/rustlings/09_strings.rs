@@ -28,7 +28,6 @@ fn compose_me_2(input: &str) -> String {
     String::from(input) + " world!"
 }
 
-
 fn replace_me(input: &str) -> String {
     // Replace "cars" with "balloons"
     let s = input.replace("cars", "balloons");
