@@ -69,18 +69,8 @@ impl Planet {
     }
 }
 
-// Test area:
-fn main() {
-    // Exercise 1:
-    println!("\nExercise 1:");
-    println!("This is an empty cons list: {:?}", create_empty_list());
-    println!(
-        "This is a non-empty cons list: {:?}",
-        create_non_empty_list(),
-    );
-
-    // Exercise 2:
-    println!("\nExercise 2:");
+fn plante_travel() {
+    // The full body for exercise 2:
     let sun = Rc::new(Sun);
     println!("We start at the Sun!");
     println!("Reference count = {}\n", Rc::strong_count(&sun));
@@ -135,6 +125,21 @@ fn main() {
     assert_eq!(Rc::strong_count(&sun), 1);
 }
 
+// Test area:
+fn main() {
+    // Exercise 1:
+    println!("\nExercise 1:");
+    println!("This is an empty cons list: {:?}", create_empty_list());
+    println!(
+        "This is a non-empty cons list: {:?}",
+        create_non_empty_list(),
+    );
+
+    // Exercise 2:
+    println!("\nExercise 2:");
+    plante_travel();
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -148,5 +153,10 @@ mod tests {
     #[test]
     fn test_non_empty_list() {
         assert_ne!(create_empty_list(), create_non_empty_list());
+    }
+
+    #[test]
+    fn reference_counter() {
+        plante_travel();
     }
 }
