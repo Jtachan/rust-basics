@@ -1,4 +1,4 @@
-use std::sync::{Arc, Mutex};
+use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 use std::time::{Duration, Instant};
 
@@ -81,6 +81,62 @@ fn exercise_2() {
     println!("Jobs done: {}", status.lock().unwrap().jobs_done);
 }
 
+// Exercise 3: Multiple Producers Single Consumer (mpsc)
+struct Queue {
+    first_half: Vec<u32>,
+    second_half: Vec<u32>,
+}
+
+impl Queue {
+    fn new() -> Self {
+        Self {
+            first_half: vec![1, 2, 3, 4, 5],
+            second_half: vec![6, 7, 8, 9, 10],
+        }
+    }
+}
+
+/// The function sends 'tx' to both exiting threads.
+fn send_tx(q: Queue, tx: mpsc::Sender<u32>) {
+    // Defining a clone per new extra thread:
+    let tx_clone = tx.clone();
+
+    // Extracting both 'halves', as the same variable `q` cannot be owned by (moved into)
+    // multiple threads.
+    let first_half = q.first_half;
+    let second_half = q.second_half;
+
+    thread::spawn(move || {
+        for val in first_half {
+            println!("Sending {val:?}");
+            tx_clone.send(val).unwrap();
+            thread::sleep(Duration::from_millis(250));
+        }
+    });
+
+    thread::spawn(move || {
+        for val in second_half {
+            println!("Sending {val:?}");
+            tx.send(val).unwrap();
+            thread::sleep(Duration::from_millis(250));
+        }
+    });
+}
+
+fn exercise_3() {
+    let (tx, rx) = mpsc::channel();
+    let queue = Queue::new();
+
+    send_tx(queue, tx);
+
+    let mut received = Vec::with_capacity(10);
+    for value in rx {
+        received.push(value);
+    }
+    received.sort();
+    assert_eq!(received, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+}
+
 fn main() {
     println!("\nRunning exercise 1...");
     exercise_1();
@@ -90,6 +146,9 @@ fn main() {
 
     println!("\nRunning exercise 2...");
     exercise_2();
+
+    println!("\nRunning exercise 3...");
+    exercise_3();
 
     println!("\nAll exercises passed!");
 }
