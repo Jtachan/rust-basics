@@ -6,6 +6,10 @@ Each project is either:
 - A standalone script (which executable can be created with `rustc`).
 - A cargo crate, for those projects that are a little bit more complicated.
 
+> Note: 
+> Most of the projects here are either extracted from [The Rust Book](https://doc.rust-lang.org/book)
+> or from the [`rustlings` exercises](https://github.com/rust-lang/rustlings).
+
 Alongside the projects, in this document is presented a cheat-sheet over some basic rust usages.
 
 ## Index
@@ -21,9 +25,9 @@ Alongside the projects, in this document is presented a cheat-sheet over some ba
 
 ### 1. Formatting
 
-| Single files (scripts)  | Cargo pkgs                            |
-|-------------------------|---------------------------------------|
-| `rustfmt FILE_PATH.rs`  |  `fmt` (from within the cargo folder) |
+| Single files (scripts)  | Cargo packages                       |
+|-------------------------|--------------------------------------|
+| `rustfmt FILE_PATH.rs`  | `fmt` (from within the cargo folder) |
 
 > Note: The formatting will also return linting messages.
 
